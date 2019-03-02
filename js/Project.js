@@ -10,7 +10,11 @@ var ProjectSchema = mongoose.Schema({
 	author:{
 		type:mongoose.Schema.Types.ObjectId,
 		ref:"User"
-	}
+	},
+	comments:[{
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "Comment"
+	}]
 	//accountnum:String,
 	//ifsc:String,
 })

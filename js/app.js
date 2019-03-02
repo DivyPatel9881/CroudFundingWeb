@@ -9,6 +9,7 @@ var passportLocalMongoose = require("passport-local-mongoose")
 var expressSession = require("express-session")
 var User = require("./User.js")
 var Project = require("./Project.js")
+var Comment = require("./Comment.js")
 
 var app = express()
 
@@ -77,22 +78,66 @@ app.get("/projects/:category",function(req,res){
 			console.log(err)
 		}
 		else{
-			console.log(projects)
-			res.render("categoryprojects.ejs",{category:req.params.category,projects:projects})
+			res.render("categoryprojects.ejs",{projects:projects,category:req.params.category})
 		}
 	})
 })
 
 app.get("/projects/knowmore/:id",function(req,res){
-	Project.findById(req.params.id,function(err,project){
-		if(err){
-			console.log(err)
-		}
-		else{
-			res.render("knowmore.ejs",{project:project})
+	Project.findOne({_id:req.params.id}).populate([
+		{path:"author"},
+		{path:"comments",
+		 populate:{path:"comments"}
+		 }
+		]).exec(function(err,project){
+			if(err)
+			{
+				console.log(err)
+			}
+			else
+			{
+				let CommentAuthors = []
+				if(project.comments.length != 0){
+					project.comments.forEach(function(comment){
+						User.findById(comment.author,function(err,User){
+							CommentAuthors.push(User.username)
+							if(project.comments.length == CommentAuthors.length)
+							{
+								res.render("knowmore.ejs",{project:project,CUsers:CommentAuthors})
+							}
+						})
+					})
+				}
+				else{
+					res.render("knowmore.ejs",{project:project,CUsers:CommentAuthors})
+			}
 		}
 	})
 })
+
+app.post("/projects/comment/:id",function(req,res){
+	var sanitize = req.sanitize
+	Project.findById(req.params.id,function(err,project){
+		var comment = new Comment({
+			Comment:sanitize(req.body.comment),
+			author:req.user
+		})
+		Comment.create(comment,function(err,comment){
+			Project.comments.push(comment)
+			Project.save(function(err,project){
+				if(err)
+				{
+					console.log(err)
+				}
+				else
+				{
+					res.redirect("/projects/knowmore/"+req.params.id)
+				}
+			})
+		})		
+	})
+})
+
 app.get("/register/details",function(req,res){
 	res.render("reg_details.ejs")
 })
