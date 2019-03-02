@@ -1,0 +1,20 @@
+<% include header.ejs %>
+	<link rel="stylesheet" href="/knowmore.css">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-sm-12 thumbnail">
+				<img src="<%= project.photo %>">
+				<p class="name"><%= project.name %> (<%= project.category %>)</p>
+				<div class="well">
+					<p class="desc"><%= project.description %></p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-12 thumbnail pledge" >
+				<p >Pledged Funds Goal is <%= project.goal %></p>
+				<p >Backers </p>
+				<p >Funds raised worth  </p>
+				<button class="btn btn-primary btn-lg btn-block">BACK THIS PROJECT</button>
+			</div>
+		</div>
+	</div>
+<% include footer.ejs %>

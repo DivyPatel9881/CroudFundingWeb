@@ -1,0 +1,15 @@
+.name{
+	text-align:center;
+	text-transform:uppercase;
+	font-weight:bold;
+	font-size:1.5em;
+	margin-top:4px;
+}
+.desc{
+	font-size:1.3em;
+	text-align:justify;
+}
+.pledge{
+	margin-left:4%;
+	font-size:20px;
+}

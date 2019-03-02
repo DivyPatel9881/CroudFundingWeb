@@ -8,6 +8,7 @@ var passportLocal = require("passport-local")
 var passportLocalMongoose = require("passport-local-mongoose")
 var expressSession = require("express-session")
 var User = require("./User.js")
+var Project = require("./Project.js")
 
 var app = express()
 
@@ -44,10 +45,54 @@ app.get("/",function(req,res){
 	res.send("Home page.")
 })
 
-app.get("/:category",function(req,res){
-	
+app.get("/newproject",function(req,res){
+	res.render("newproject.ejs")
 })
 
+app.post("/newproject",function(req,res){
+	sanitize = req.sanitize
+	description = sanitize(req.body.description)
+	console.log(req.user)
+	Project.create({
+		name:req.body.name,
+		category:req.body.category,
+		description:description,
+		photo:req.body.photo,
+		video:req.body.video,
+		goal:req.body.goal,
+		author:req.user
+	},function(err,project){
+		if(err){
+			console.log(err)
+		}
+		else{
+			res.redirect("/")
+		}
+	})
+})
+
+app.get("/projects/:category",function(req,res){
+	Project.find({category:req.params.category},function(err,projects){
+		if(err){
+			console.log(err)
+		}
+		else{
+			console.log(projects)
+			res.render("categoryprojects.ejs",{category:req.params.category,projects:projects})
+		}
+	})
+})
+
+app.get("/projects/knowmore/:id",function(req,res){
+	Project.findById(req.params.id,function(err,project){
+		if(err){
+			console.log(err)
+		}
+		else{
+			res.render("knowmore.ejs",{project:project})
+		}
+	})
+})
 app.get("/register/details",function(req,res){
 	res.render("reg_details.ejs")
 })
@@ -60,11 +105,23 @@ var flag=0
 var fullname=""
 var phone=""
 var aadharnum=""
+var gender = ""
+
+app.get("/login",function(req,res){
+	res.render("login.ejs")
+})
+
+app.get("/logout",isLoggedIn,function(req,res){
+	req.logout()
+	//req.flash("success","Logged You out.")
+	res.redirect("/")
+})
 
 app.post("/register/details",isLoggedOut,function(req,res){
 	fullname = req.body.fullname
 	phone = req.body.phone
 	aadharnum = req.body.aadharnum
+	gender=req.body.gender
 	User.find({aadharNum:aadharnum},function(error,user){
 		if(error){
 			console.log(error)
@@ -82,25 +139,45 @@ app.post("/register/details",isLoggedOut,function(req,res){
 })
 
 app.post("/register/signup",isLoggedOut,function(req,res){
-	if(flag==1)
-	{	
-		User.register(new User({fullname:fullname,phone:phone,aadharNum:aadharnum,username:req.body.email}),req.body.password,function(err,user){
-			if(err)
-			{
-				console.log(err)
-				res.redirect("/register/signup")
-			}
-			else{
-				passport.authenticate("local")(req,res,function(){
-					//req.flash("success","Registered successfully")
-					console.log(authenticated)
-					res.redirect("/")
-				})
-			}
-		})
-	}else{
-		res.redirect("/register/details")
-	}
+	User.find({emailId:req.body.email},function(err,user){
+		if(err){
+			console.log(err)
+		}
+		else if(user[0]==undefined){
+			var newUser = new User({
+				fullname:fullname,
+				phone:phone,
+				aadharNum:aadharnum,
+				gender:gender
+				,emailId:req.body.email,
+				username: req.body.username
+			});
+			User.register(newUser,req.body.password,function(err,user){
+				if(err)
+				{
+					console.log(err)
+					res.redirect("/register/signup")
+				}
+				else{
+					passport.authenticate("local")(req,res,function(){
+						//req.flash("success","Registered successfully")
+						res.redirect("/")
+					})
+				}
+			})
+		}
+		else{
+			res.redirect("/register/signup")
+		}
+	})
+})
+
+app.post("/login",isLoggedOut,passport.authenticate("local",{
+	successRedirect:"/",
+	failureRedirect:"/login",
+	//failureFlash:"Cannot login you",
+	//successFlash:"Successfully Logged you in"
+}),function(req,res){
 })
 
 function isLoggedIn(req,res,next){

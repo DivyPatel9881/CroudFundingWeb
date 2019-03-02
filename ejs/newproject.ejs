@@ -1,0 +1,42 @@
+<% include header.ejs %>
+	<link rel="stylesheet" href="/newproject.css"/>
+	<div class="container">
+		<div class="well">
+			<h2 class="header">CREATE A PROJECT</h2>
+			<form action="/newproject" method="POST" class="form_detail">
+			  <div class="form-group">
+				<label for="Name"></label>
+				<input type="text" class="form-control input-lg" id="Name" required placeholder="Name Of Project" name="name">
+			  </div>
+			  
+			  <div class="form-group">
+				  <label for="category"></label>
+				  <select class="form-control input-lg" id="category" name="category" required>
+					<option value="">SELECT A CATEGORY</option>
+					<option value="Arts">ARTS</option>
+					<option value="Design and Tech">DESIGN AND TECH</option>
+					<option value="Games">GAMES</option>
+					<option value="Music">MUSIC</option>
+				  </select>
+			  </div>
+			  <div class="form-group">
+				  <label for="desc"></label>
+				  <textarea class="form-control input-lg" rows="5" id="desc" placeholder="Description" name="description"></textarea>
+			  </div>
+			  <div class="form-group">
+				<label for="photo"></label>
+				<input type="text" class="form-control input-lg" id="photo" required placeholder="Photo URL" name="photo">
+			  </div>
+			  <div class="form-group">
+				<label for="video"></label>
+				<input type="text" class="form-control input-lg" id="video" placeholder="Video URL" name="video">
+			  </div>
+			  <div class="form-group">
+				<label for="goal"></label>
+				<input type="text" class="form-control input-lg" id="goal" required placeholder="Goal Funding Required" name="goal">
+			  </div>
+			  <button type="submit" class="btn btn-primary btn-lg">CREATE</button>
+			</form>
+		</div>
+	</div>
+<% include footer.ejs %>

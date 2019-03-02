@@ -1,0 +1,18 @@
+<% include header.ejs %>
+	<link rel="stylesheet" href="/categoryprojects.css">
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="header"><%= category %></h1>
+		</div>
+		<hr>
+		<div class="row flex">
+			<% projects.forEach(function(project){%>
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 thumbnail">
+					<img src="<%= project.photo %>"/>
+					<p class="cust"><%= project.name %></p>
+					<a href="/projects/knowmore/<%= project._id %>"><button class="btn btn-primary btn-md">KNOW MORE</button></a>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+<% include footer.ejs %>
