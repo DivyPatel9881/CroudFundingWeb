@@ -1,0 +1,23 @@
+<% include header.ejs %>
+	<link rel="stylesheet" href="/reg_details.css"/>
+	<div class="container">
+		<div class="well">
+			<h2 class="header">REGISTRATION DETAILS</h2>
+			<form action="/register/details" method="POST" class="form_detail">
+			  <div class="form-group">
+				<label for="full"></label>
+				<input type="text" class="form-control input-lg" id="full" required placeholder="Full Name" name="fullname">
+			  </div>
+			  <div class="form-group">
+				<label for="phone"></label>
+				<input type="tel" class="form-control input-lg" id="phone" required placeholder="Phone Number" name="phone">
+			  </div>
+			  <div class="form-group">
+				<label for="anum"></label>
+				<input type="tel" class="form-control input-lg" id="anum" required placeholder="Aadhar Number" name="aadharnum">
+			  </div>
+			  <button type="submit" class="btn btn-primary btn-lg">Next</button>
+			</form>
+		</div>
+	</div>
+<% include footer.ejs %>
