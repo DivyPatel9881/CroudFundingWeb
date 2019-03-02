@@ -8,7 +8,11 @@ var UserSchema = mongoose.Schema({
 	aadharNum:String,
 	emailId:String,
 	username:String,
-	password:String
+	password:String,
+	projects:[{
+		type:mongoose.Schema.Types.ObjectId,
+		req:"Project"
+	}]
 })
 
 UserSchema.plugin(passportLocalMongoose)

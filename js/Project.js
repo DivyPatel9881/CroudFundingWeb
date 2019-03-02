@@ -15,9 +15,18 @@ var ProjectSchema = mongoose.Schema({
 	comments:[{
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Comment"
-	}]
-	//accountnum:String,
-	//ifsc:String,
+	}],
+	backers:[{
+		type : mongoose.Schema.Types.ObjectId,
+		ref : "User"
+	}],
+	funds:{
+		type:Number,
+		default:0
+	},
+	accountholdername:String,
+	accountnum:String,
+	ifsc:String
 })
 
 module.exports = mongoose.model("Project",ProjectSchema)

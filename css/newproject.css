@@ -11,3 +11,12 @@
 .well{
 	margin-top:2%; 
 }
+.acc_header{
+	font-size:1.3em;
+	margin-top:25px;
+}
+hr{
+	border-width:1px;
+	border-style:solid;
+	border-color:black;
+}

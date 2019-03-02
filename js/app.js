@@ -62,13 +62,31 @@ app.post("/newproject",function(req,res){
 		photo:req.body.photo,
 		video:req.body.video,
 		goal:req.body.goal,
-		author:req.user
+		author:req.user,
+		accountholdername:req.body.accoutholdername,
+		accountnum:req.bodyaccountnum,
+		ifsc:req.body.ifsc
 	},function(err,project){
 		if(err){
 			console.log(err)
 		}
 		else{
-			res.redirect("/")
+			User.findById(project.author,function(err,user){
+				if(err)
+				{
+					console.log(err)
+				}
+				else{
+					user.projects.push(project)
+					user.save(function(err,user){
+						if(err){
+							console.log(err)
+						}else{
+							res.redirect("/")
+						}
+					})
+				}
+			})
 		}
 	})
 })
@@ -136,6 +154,17 @@ app.post("/projects/comment/:id",isLoggedIn,function(req,res){
 				}
 			})
 		})		
+	})
+})
+
+app.get("/pledge/:id",function(req,res){
+	Project.findById(req.params.id,function(err,project){
+		if(err){
+			console.log("err")
+		}
+		else{
+			res.render("pledge.ejs",{project:project})
+		}
 	})
 })
 
