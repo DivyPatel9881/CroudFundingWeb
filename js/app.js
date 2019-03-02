@@ -17,6 +17,7 @@ app.set("views","./ejs")
 
 app.use(express.static("./css"))
 app.use(express.static("./js"))
+app.use(express.static("./ejs"))
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(expressSanitizer())
@@ -43,7 +44,7 @@ app.use(function(req,res,next){
 mongoose.connect("mongodb://localhost:27017/CroudFunding",{useNewUrlParser:true})
 
 app.get("/",function(req,res){
-	res.send("Home page.")
+	res.render("home.ejs")
 })
 
 app.get("/newproject",function(req,res){
@@ -115,7 +116,7 @@ app.get("/projects/knowmore/:id",function(req,res){
 	})
 })
 
-app.post("/projects/comment/:id",function(req,res){
+app.post("/projects/comment/:id",isLoggedIn,function(req,res){
 	var sanitize = req.sanitize
 	Project.findById(req.params.id,function(err,project){
 		var comment = new Comment({
@@ -123,8 +124,8 @@ app.post("/projects/comment/:id",function(req,res){
 			author:req.user
 		})
 		Comment.create(comment,function(err,comment){
-			Project.comments.push(comment)
-			Project.save(function(err,project){
+			project.comments.push(comment)
+			project.save(function(err,project){
 				if(err)
 				{
 					console.log(err)

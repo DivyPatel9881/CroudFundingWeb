@@ -1,4 +1,5 @@
 var mongoose = require("mongoose")
+var Comment = require("./Comment.js")
 
 var ProjectSchema = mongoose.Schema({
 	name:String,

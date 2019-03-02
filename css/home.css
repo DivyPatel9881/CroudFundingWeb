@@ -1,0 +1,38 @@
+.ul{
+    list-style-type:none;
+}
+.navbar{
+	margin-bottom:0;
+}
+.flex{
+    position:absolute;
+    z-index:1;
+    display:flex;
+    width:72%; 
+	margin-left:auto;
+	margin-right:auto;
+    justify-content: space-around;
+    color: white;
+}
+.image1{
+    z-index:0;
+}    
+.projects{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.category{
+	margin-top:20px;
+	font-size:1.3em;
+	cursor:pointer;
+	color:white;
+}
+.category:hover{
+	background-color:white;
+	padding:2px;
+	border-radius:4px;
+	color:black;
+}
+hr{
+	color:white;
+}
