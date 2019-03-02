@@ -1,7 +1,21 @@
 <% include header.ejs %>
+	<link rel="stylesheet" href="/pledge.css">
 	<div class="container">
-		<div class="well">
-			
+		<div class="row">
+		<div class="col-lg-3">
 		</div>
+		<div class="col-lg-6">
+			<div class="well">
+				<p>MAKE A PLEDGE</p>
+				<form action="/pledge/<%= project._id %>" method="POST">
+					<div class="form-group">
+						<label for="amount"></label>
+						<input type="text" class="form-control input-lg" id="amount" placeholder="Amount" name="amount">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">CONTINUE</button>
+				</div>
+			</div>
+		</div>
+		<div>
 	</div>
 <% include footer.ejs %>

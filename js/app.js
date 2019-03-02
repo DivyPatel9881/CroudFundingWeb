@@ -47,11 +47,11 @@ app.get("/",function(req,res){
 	res.render("home.ejs")
 })
 
-app.get("/newproject",function(req,res){
+app.get("/newproject",isLoggedIn,function(req,res){
 	res.render("newproject.ejs")
 })
 
-app.post("/newproject",function(req,res){
+app.post("/newproject",isLoggedIn,function(req,res){
 	sanitize = req.sanitize
 	description = sanitize(req.body.description)
 	console.log(req.user)
@@ -157,7 +157,7 @@ app.post("/projects/comment/:id",isLoggedIn,function(req,res){
 	})
 })
 
-app.get("/pledge/:id",function(req,res){
+app.get("/pledge/:id",isLoggedIn,function(req,res){
 	Project.findById(req.params.id,function(err,project){
 		if(err){
 			console.log("err")
@@ -168,11 +168,26 @@ app.get("/pledge/:id",function(req,res){
 	})
 })
 
-app.get("/register/details",function(req,res){
+app.post("/pledge/:id",isLoggedIn,function(req,res){
+	Project.findById(req.params.id,function(err,project){
+		project.funds = parseInt(project.funds)+parseInt(req.body.amount)
+		project.backers.push(req.user)
+		project.save(function(err,project){
+			if(err){
+				console.log(err)
+			}
+			else{
+				res.redirect("/projects/knowmore/"+req.params.id)
+			}
+		})
+	})
+})
+
+app.get("/register/details",isLoggedOut,function(req,res){
 	res.render("reg_details.ejs")
 })
 
-app.get("/register/signup",function(req,res){
+app.get("/register/signup",isLoggedOut,function(req,res){
 	res.render("registration.ejs")
 })
 
@@ -182,7 +197,7 @@ var phone=""
 var aadharnum=""
 var gender = ""
 
-app.get("/login",function(req,res){
+app.get("/login",isLoggedOut,function(req,res){
 	res.render("login.ejs")
 })
 
