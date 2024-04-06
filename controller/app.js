@@ -7,17 +7,17 @@ var passport = require("passport")
 var passportLocal = require("passport-local")
 var passportLocalMongoose = require("passport-local-mongoose")
 var expressSession = require("express-session")
-var User = require("./User.js")
-var Project = require("./Project.js")
-var Comment = require("./Comment.js")
+var User = require("../model/User.js")
+var Project = require("../model/Project.js")
+var Comment = require("../model/Comment.js")
 
 var app = express()
 
-app.set("views","./ejs")
+app.set("views","./view/ejs")
 
-app.use(express.static("./css"))
-app.use(express.static("./js"))
-app.use(express.static("./ejs"))
+app.use(express.static("./view/css"))
+app.use(express.static("./controller/lib"))
+app.use(express.static("./view/ejs"))
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(expressSanitizer())
@@ -41,17 +41,17 @@ app.use(function(req,res,next){
 	next()
 })
 
-mongoose.connect("mongodb://localhost:27017/CroudFunding",{useNewUrlParser:true})
+mongoose.connect("mongodb://localhost:27017/CroudFunding",{useNewUrlParser:true, useUnifiedTopology:true})
 
 app.get("/",function(req,res){
 	res.render("home.ejs")
 })
 
-app.get("/newproject",isLoggedIn,function(req,res){
-	res.render("newproject.ejs")
+app.get("/create-project",isLoggedIn,function(req,res){
+	res.render("create_project.ejs")
 })
 
-app.post("/newproject",isLoggedIn,function(req,res){
+app.post("/create-project",isLoggedIn,function(req,res){
 	sanitize = req.sanitize
 	description = sanitize(req.body.description)
 	console.log(req.user)
@@ -97,12 +97,12 @@ app.get("/projects/:category",function(req,res){
 			console.log(err)
 		}
 		else{
-			res.render("categoryprojects.ejs",{projects:projects,category:req.params.category})
+			res.render("category_projects.ejs",{projects:projects,category:req.params.category})
 		}
 	})
 })
 
-app.get("/projects/knowmore/:id",function(req,res){
+app.get("/projects/know-more/:id",function(req,res){
 	Project.findOne({_id:req.params.id}).populate([
 		{path:"author"},
 		{path:"comments",
@@ -122,13 +122,13 @@ app.get("/projects/knowmore/:id",function(req,res){
 							CommentAuthors.push(User.username)
 							if(project.comments.length == CommentAuthors.length)
 							{
-								res.render("knowmore.ejs",{project:project,CUsers:CommentAuthors})
+								res.render("know_more.ejs",{project:project,CUsers:CommentAuthors})
 							}
 						})
 					})
 				}
 				else{
-					res.render("knowmore.ejs",{project:project,CUsers:CommentAuthors})
+					res.render("know_more.ejs",{project:project,CUsers:CommentAuthors})
 			}
 		}
 	})
@@ -150,7 +150,7 @@ app.post("/projects/comment/:id",isLoggedIn,function(req,res){
 				}
 				else
 				{
-					res.redirect("/projects/knowmore/"+req.params.id)
+					res.redirect("/projects/know-more/"+req.params.id)
 				}
 			})
 		})		
@@ -177,14 +177,14 @@ app.post("/pledge/:id",isLoggedIn,function(req,res){
 				console.log(err)
 			}
 			else{
-				res.redirect("/projects/knowmore/"+req.params.id)
+				res.redirect("/projects/know-more/"+req.params.id)
 			}
 		})
 	})
 })
 
 app.get("/register/details",isLoggedOut,function(req,res){
-	res.render("reg_details.ejs")
+	res.render("registration_details.ejs")
 })
 
 app.get("/register/signup",isLoggedOut,function(req,res){

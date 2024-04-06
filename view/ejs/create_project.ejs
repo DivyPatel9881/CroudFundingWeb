@@ -1,9 +1,9 @@
-<% include header.ejs %>
-	<link rel="stylesheet" href="/newproject.css"/>
+<%- include("header"); %>
+	<link rel="stylesheet" href="/create_project.css"/>
 	<div class="container">
 		<div class="well">
 			<h2 class="header">CREATE A PROJECT</h2>
-			<form action="/newproject" method="POST" class="form_detail">
+			<form action="/create-project" method="POST" class="form_detail">
 			  <div class="form-group">
 				<label for="Name"></label>
 				<input type="text" class="form-control input-lg" id="Name" required placeholder="Name Of Project" name="name">
@@ -56,4 +56,4 @@
 			</form>
 		</div>
 	</div>
-<% include footer.ejs %>
+<%- include("footer"); %>

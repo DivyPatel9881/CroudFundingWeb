@@ -1,13 +1,9 @@
-<% include header.ejs %>
-	<link rel="stylesheet" href="/registration.css"/>
+<%- include("header"); %>
+	<link rel="stylesheet" href="/login.css"/>
 	<div class="container">
 		<div class="well">
-			<h2 class="header">SIGN UP</h2>
-			<form action="/register/signup" method="POST" class="form_detail">
-			  <div class="form-group">
-				<label for="email"></label>
-				<input type="email" class="form-control input-lg" id="email" required placeholder="Email" name="email">
-			  </div>
+			<h2 class="header">LOGIN</h2>
+			<form action="/login" method="POST" class="form_detail">
 			  <div class="form-group">
 				<label for="uname"></label>
 				<input type="text" class="form-control input-lg" id="uname" required placeholder="Username" name="username">
@@ -20,4 +16,4 @@
 			</form>
 		</div>
 	</div>
-<% include footer.ejs %>
+<%- include("footer") %>
