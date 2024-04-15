@@ -1,1 +1,1 @@
-# CrowdFundingWeb (Neurelo: Software Engineering Assignment)
+# Crowd Funding Webapp with Neurelo and MongoDB
