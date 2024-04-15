@@ -1,1 +1,1 @@
-# CrowdFundingWebn (Neurelo: Software Engineering Assignment)
+# CrowdFundingWeb (Neurelo: Software Engineering Assignment)
