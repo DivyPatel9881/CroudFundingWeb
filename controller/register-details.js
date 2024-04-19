@@ -3,9 +3,9 @@ var User = require('../model/User.js')
 function registerDetails(req, res) {
 	fullname = req.body.fullname
 	phone = req.body.phone
-	aadharnum = req.body.aadharnum
+	ssn = req.body.ssn
 	gender = req.body.gender
-	User.find({aadharNum: aadharnum}, function(error, user) {
+	User.find({ssn: ssn}, function(error, user) {
 		if (error) {
 			console.log(error)
 		} else if(user[0]==undefined) {

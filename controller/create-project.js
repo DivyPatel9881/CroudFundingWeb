@@ -13,9 +13,9 @@ function createProject(req, res) {
 		video: req.body.video,
 		goal: req.body.goal,
 		author: req.user,
-		accountholdername: req.body.accoutholdername,
-		accountnum: req.bodyaccountnum,
-		ifsc: req.body.ifsc
+		account_holder_name: req.body.accoutholdername,
+		account_num: req.body.accountnum,
+		routing_num: req.body.rout
 	}, function(err, project) {
 		if (err) {
 			console.log(err)

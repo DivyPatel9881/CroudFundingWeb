@@ -1,16 +1,17 @@
 var User = require("../model/User.js")
+var passport = require("passport")
 
 function signup(req, res){
-	User.find({emailId: req.body.email}, function(err, user) {
+	User.find({email: req.body.email}, function(err, user) {
 		if (err) {
 			console.log(err)
 		} else if (user[0] == undefined) {
 			var newUser = new User({
-				fullname: fullname,
+				full_name: fullname,
 				phone: phone,
-				aadharNum: aadharnum,
+				aadharNum: ssn,
 				gender: gender,
-                emailId: req.body.email,
+                email: req.body.email,
 				username: req.body.username
 			});
 			User.register(newUser, req.body.password, function(err, user) {

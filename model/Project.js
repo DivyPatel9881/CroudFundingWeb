@@ -2,31 +2,31 @@ var mongoose = require("mongoose")
 var Comment = require("./Comment.js")
 
 var ProjectSchema = mongoose.Schema({
-	name:String,
-	category:String,
-	description:String,
-	photo:String,
-	video:String,
-	goal:String,
-	author:{
+	name: String,
+	category: String,
+	description: String,
+	photo: String,
+	video: String,
+	goal: String,
+	author: {
 		type:mongoose.Schema.Types.ObjectId,
 		ref:"User"
 	},
-	comments:[{
+	comments: [{
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "Comment"
 	}],
-	backers:[{
+	backers: [{
 		type : mongoose.Schema.Types.ObjectId,
 		ref : "User"
 	}],
-	funds:{
+	funds: {
 		type:Number,
 		default:0
 	},
-	accountholdername:String,
-	accountnum:String,
-	ifsc:String
+	account_holder_name: String,
+	account_num: String,
+	routing_num: String
 })
 
 module.exports = mongoose.model("Project",ProjectSchema)

@@ -79,12 +79,6 @@ app.get("/register/signup", isLoggedOut, function(req, res){
 	res.render("registration.ejs")
 })
 
-var flag = 0
-var fullname = ""
-var phone = ""
-var aadharnum = ""
-var gender = ""
-
 app.get("/login", isLoggedOut, function(req, res) {
 	res.render("login.ejs")
 })
