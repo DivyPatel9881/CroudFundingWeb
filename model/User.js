@@ -10,11 +10,11 @@ var UserSchema = mongoose.Schema({
 	username: String,
 	password: String,
 	projects: [{
-		type:mongoose.Schema.Types.ObjectId,
-		req:"Project"
+		type: mongoose.Schema.Types.ObjectId,
+		req: "Project"
 	}]
 })
 
 UserSchema.plugin(passportLocalMongoose)
 
-module.exports = mongoose.model("User",UserSchema)
+module.exports = mongoose.model("User", UserSchema)

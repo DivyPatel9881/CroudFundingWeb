@@ -9,24 +9,24 @@ var ProjectSchema = mongoose.Schema({
 	video: String,
 	goal: String,
 	author: {
-		type:mongoose.Schema.Types.ObjectId,
-		ref:"User"
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
 	},
 	comments: [{
-		type : mongoose.Schema.Types.ObjectId,
-		ref : "Comment"
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Comment"
 	}],
 	backers: [{
-		type : mongoose.Schema.Types.ObjectId,
-		ref : "User"
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
 	}],
 	funds: {
-		type:Number,
-		default:0
+		type: Number,
+		default: 0
 	},
 	account_holder_name: String,
 	account_num: String,
 	routing_num: String
 })
 
-module.exports = mongoose.model("Project",ProjectSchema)
+module.exports = mongoose.model("Project", ProjectSchema)
