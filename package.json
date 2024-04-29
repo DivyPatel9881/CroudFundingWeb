@@ -4,8 +4,10 @@
   "description": "Crowd Funding Website",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "start-dev": "nodemon app.js",
+    "start-mongoose": "node Mongoose-app/app.js",
+    "start-mongoose-dev": "nodemon Mongoose-app/app.js",
+    "start-neurelo": "node Neurelo-app/app.js",
+    "start-neurelo-dev": "nodemon Neurelo-app/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Divy Patel",

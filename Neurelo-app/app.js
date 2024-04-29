@@ -119,7 +119,7 @@ function isLoggedOut(req, res, next) {
 	}
 }
 
-var server = app.listen("3000", "127.0.0.1", function() {
+var server = app.listen("3001", "127.0.0.1", function() {
 	console.log("Server is Running.")
 	console.log(server.address().port + " " + server.address().address)
 })
