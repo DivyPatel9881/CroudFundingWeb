@@ -1,0 +1,73 @@
+<%- include("header"); %>
+	<script>
+		var hide = true
+		function Toggle(){
+			var cs = document.querySelector(".comments-section")
+			var l = document.querySelector(".comments-toggle")
+			if(hide){
+				cs.style.display = "block"
+				l.innerHTML = "COMMENTS <i class='fas fa-sort-down'></i>"
+				hide=false
+			}
+			else{
+				cs.style.display = "none"
+				l.innerHTML = "COMMENTS <i class='fas fa-caret-right'></i>"
+				hide=true
+			}
+		}
+	</script>
+	<link rel="stylesheet" href="/knowmore.css">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-sm-12 thumbnail">
+				<img src="<%= project.photo %>">
+				<p class="name"><%= project.name %> (<%= project.category %>)</p>
+				<div class="well">
+					<p class="desc"><%= project.description %></p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-12 thumbnail pledge" >
+				<p >Pledged Funds Goal is <%= project.goal %></p>
+				<p >Backers <%= project.backers.length %></p>
+				<p >Funds raised worth  &#x20b9 <%= project.funds %></p>
+				<a href="/pledge/<%= project._id %>"><button class="btn btn-primary btn-lg btn-block">BACK THIS PROJECT</button></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="comments">
+					<span class="comments-toggle">COMMENTS <i class="fas fa-caret-right"></i></span>
+					<form action="/projects/comment/<%= project._id %>" method="POST" class="comment-form">
+						<div class="form-group">
+							<label for="comment"></label>
+							<input type="text" class="form-control" id="comment" placeholder="Comment" name="comment">
+						</div>
+						<button type="submit" class="btn btn-primary">COMMENT</button>
+					</form>
+					<%	if(project.comments != undefined){ %>
+						<% let i=0 %>
+						<div class="comments-section">
+							<% project.comments.forEach(function(comment){ %>
+								<div class="well well-sm">	
+									<div class="comment-author"><em><i class="fas fa-user-tag"></i> <%= CUsers[i++] %></em></div>
+									<div class="comment"><%= comment.comment %></div>
+								</div>
+							<% }) %>
+						</div>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function CommentsHide(){
+			var cs = document.querySelector(".comments-section")
+			var l = document.querySelector(".comments-toggle")
+			l.addEventListener("click",function(){
+				Toggle()
+			})
+			cs.style.display="none"
+		}
+		CommentsHide()
+	</script>
+<%- include("footer"); %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>Accelarate</title>
+		<meta charset="UTF-8"/>
+		<script src="/jquery-3.3.1.min.js"></script>
+		<script src="/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/bootstrap.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+		<style>
+			body{
+				font-family:raleway;
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+			<div class="navbar-header">			
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/"><i class="fab fa-accusoft"></i> ACCELERATE</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/create-project">START A PROJECT<span class="sr-only">(current)</span></a></li>	
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<% if(!user){ %>
+						<li><a href="/login">LOGIN <i class="fas fa-sign-in-alt"></i></a></li>
+						<li><a href="/register/details">SIGN-UP <i class="fas fa-user-plus"></i></a></li>
+					<%}%>
+					<% if(user){ %>
+						<li><a href="#"> <strong><i class="fas fa-user-tag"></i> <%= user.username %></strong> </i></a></li>
+						<li><a href="/logout">LOGOUT <i class="fas fa-sign-out-alt"></i></a></li>
+					<% } %>
+				</ul>
+			</div>
+			</div>
+		</nav>
+				

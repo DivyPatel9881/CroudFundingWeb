@@ -1,0 +1,32 @@
+<%- include("header"); %>
+	<link rel="stylesheet" href="/reg_details.css"/>
+	<div class="container">
+		<div class="well">
+			<h2 class="header">REGISTRATION DETAILS</h2>
+			<form action="/register/details" method="POST" class="form_detail">
+			  <div class="form-group">
+				<label for="full"></label>
+				<input type="text" class="form-control input-lg" id="full" required placeholder="Full Name" name="fullname">
+			  </div>
+			  <div class="form-group">
+				<label for="phone"></label>
+				<input type="tel" class="form-control input-lg" id="phone" required placeholder="Phone Number" name="phone">
+			  </div>
+			  <div class="form-group">
+				<label for="anum"></label>
+				<input type="tel" class="form-control input-lg" id="ssn" required placeholder="SSN" name="ssn">
+			  </div>
+			  <div class="form-group">
+				  <label for="Gender"></label>
+				  <select class="form-control input-lg" id="Gender" name="gender" required>
+					<option value="">SELECT A GENDER</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+					<option value="Others">Others</option>
+				  </select>
+			   </div>
+			  <button type="submit" class="btn btn-primary btn-lg">Next</button>
+			</form>
+		</div>
+	</div>
+<%- include("footer"); %>
