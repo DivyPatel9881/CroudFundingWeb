@@ -10,9 +10,11 @@ async function pledge(req, res) {
 		project.backers.push(req.user);
 
 		try {
+
 			project_res = await ProjectApiService.updateProjectById(req.params.id, project)
 
 			res.redirect("/projects/know-more/"+req.params.id)
+
 		} catch(error) {
 			console.log(error);	
 		}

@@ -2,18 +2,20 @@ var {Project, ProjectApiService, Comment, CommentApiService, User, UserApiServic
 
 async function projectKnowMore(req, res) {
 	try {
+
 		var project_res = await ProjectApiService.findProjectById(req.params.id);
 		var project = project_res.data?.data;
 
 		let CommentAuthors = []
 		if (project.comments.length != 0) {
 			project.comments.forEach(async function (commentid) {
-
 				try {
+		
 					var comment_res = await CommentApiService.findCommentById(commentid)
 					var comment = comment_res.data?.data;
 					
 					try {
+			
 						const user_res = await UserApiService.findUserById(comment.author);
 						const user = user.data?.data;
 
