@@ -21,7 +21,7 @@ async function createProj(req, res) {
 				routing_num: req.body.rout,
 				id: mongoose.Types.ObjectId()
 			})
-		var project = project.data?.data;
+		var project = project_res.data?.data;
 
 		try {
 
