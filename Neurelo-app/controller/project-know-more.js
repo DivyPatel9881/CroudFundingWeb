@@ -1,4 +1,5 @@
 var {Project, ProjectApiService, Comment, CommentApiService, User, UserApiService} = require('neurelo-sdk');
+var user = require('./user.js');
 
 async function projectKnowMore(req, res) {
 	try {
@@ -21,7 +22,7 @@ async function projectKnowMore(req, res) {
 
 						CommentAuthors.push(user.username);
 						if (project.comments.length == CommentAuthors.length) {
-							res.render("know_more.ejs", {project:project, CUsers:CommentAuthors})
+							res.render("know_more.ejs", {project:project, CUsers:CommentAuthors, user: user})
 						}
 
 					} catch(error) {
@@ -33,7 +34,7 @@ async function projectKnowMore(req, res) {
 				}
 			})
 		} else {
-			res.render("know_more.ejs", {project:project, CUsers:CommentAuthors})
+			res.render("know_more.ejs", {project:project, CUsers:CommentAuthors, user: user})
 		}
 
 	} catch(error) {

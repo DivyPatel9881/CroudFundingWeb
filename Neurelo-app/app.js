@@ -4,12 +4,13 @@ var expressSanitizer = require("express-sanitizer")
 var methodOverride = require("method-override")
 var expressSession = require("express-session")
 
-var createProject = require("./controller/create-project.js")
+var { createProject } = require("./controller/create-project.js")
 var { getProjects } = require("./controller/get-projects.js")
-var projectKnowMore = require("./controller/project-know-more.js")
-var createComment = require("./controller/create-comment.js")
-var renderPledge = require("./controller/render-pledge.js")
-var pledge = require("./controller/pledge.js")
+var { projectKnowMore } = require("./controller/project-know-more.js")
+var { createComment } = require("./controller/create-comment.js")
+var { renderPledge } = require("./controller/render-pledge.js")
+var { pledge } = require("./controller/pledge.js")
+var user = require('./controller/user.js')
 
 var app = express()
 
@@ -31,11 +32,11 @@ app.use(expressSession({
 }))
 
 app.get("/",function(req, res){
-	res.render("home.ejs")
+	res.render("home.ejs", {user: user})
 })
 
-app.get("/create-project", function(req, res){
-	res.render("create_project.ejs")
+app.get("/create-project", function(req, res) {
+	res.render("create_project.ejs", {user: user})
 })
 
 app.post("/create-project", createProject)
@@ -51,15 +52,15 @@ app.get("/pledge/:id", renderPledge)
 app.post("/pledge/:id", pledge)
 
 app.get("/register/details", function(req, res){
-	res.render("registration_details.ejs")
+	res.render("registration_details.ejs", {user: user})
 })
 
 app.get("/register/signup", function(req, res){
-	res.render("registration.ejs")
+	res.render("registration.ejs", {user: user})
 })
 
 app.get("/login", function(req, res) {
-	res.render("login.ejs")
+	res.render("login.ejs", {user: user})
 })
 
 app.get("/logout", function(req, res) {
