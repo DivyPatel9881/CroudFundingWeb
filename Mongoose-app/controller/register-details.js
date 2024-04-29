@@ -9,7 +9,6 @@ function registerDetails(req, res) {
 		if (error) {
 			console.log(error)
 		} else if(user[0]==undefined) {
-			flag = 1
 			res.redirect("/register/signup")
 		} else {
 			console.log("User already exists.")

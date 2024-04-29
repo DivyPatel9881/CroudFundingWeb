@@ -1,24 +1,40 @@
-var Comment = require("../model/Comment.js")
-var Project = require("../model/Project.js")
+var {Project, ProjectApiService, Comment, CommentApiService} = require("neurelo-sdk")
+var mongoose = require('mongoose');
 
-function createComment(req, res) {
-	var sanitize = req.sanitize
-	Project.findById(req.params.id, function(err, project) {
-		var comment = new Comment({
-			comment: sanitize(req.body.comment),
-			author: req.user
-		})
-		Comment.create(comment,function(err, comment){
-			project.comments.push(comment)
-			project.save(function(err, project){
-				if(err) {
-					console.log(err)
-				} else {
-					res.redirect("/projects/know-more/" + req.params.id)
-				}
-			})
-		})		
-	})
+async function createComment(req, res) {
+	var sanitize = req.sanitize;
+
+	try {
+
+		var project_res = await ProjectApiService.findProjectById(req.params.id);
+		var project = project_res.data?.data;
+
+		try {
+
+			var comment_res = await CommentApiService.createOneComment({
+					comment: sanitize(req.body.comment),
+					author: req.body.user,
+					id: mongoose.Types.ObjectId()
+				});
+			var comment = comment_res.data?.data;
+
+			try {
+
+				project.comments.push(comment._id);
+				var project_update_res = await ProjectApiService.updateProjectById(project._id, project);
+				res.redirect("/projects/know-more/" + req.params.id)
+
+			} catch(error) {
+				console.log(error);
+			}
+	
+		} catch(error) {
+			console.log(error);
+		}
+
+	} catch(error) {
+		console.log(error);
+	}
 }
 
 module.exports = createComment;

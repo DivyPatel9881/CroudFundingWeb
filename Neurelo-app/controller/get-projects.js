@@ -1,13 +1,14 @@
-var Project = require("../model/Project.js")
+var {Project, ProjectApiService} = require('neurelo-sdk')
 
-function getProjects(req, res) {
-	Project.find({category:req.params.category}, function(err, projects){
-		if (err) {
-			console.log(err)
-		} else {
-			res.render("category_projects.ejs",{projects:projects, category:req.params.category})
-		}
-	})
+async function getProjects(req, res) {
+	try {
+		var projects_res = await ProjectApiService.findProject({category: req.params.category});
+		res.render("category_projects.ejs", {projects: projects_res.data?.data, category: req.params.category});
+	} catch(error) {
+		console.log(error);
+	}
 }
 
-module.exports = getProjects;
+module.exports = {
+	getProjects: getProjects
+};
