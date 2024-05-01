@@ -1,4 +1,4 @@
-var {Project, ProjectApiService, Comment, CommentApiService} = require("neurelo-sdk")
+var {ProjectApiService, CommentApiService} = require("neurelo-sdk")
 var mongoose = require('mongoose');
 
 async function createComment(req, res) {

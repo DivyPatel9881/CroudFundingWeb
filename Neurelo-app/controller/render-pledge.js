@@ -1,4 +1,4 @@
-var {Project, ProjectApiService} = require('neurelo-sdk');
+var {ProjectApiService} = require('neurelo-sdk');
 var user = require("./user.js");
 
 async function renderPledge(req, res) {

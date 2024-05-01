@@ -1,4 +1,4 @@
-var {Project, ProjectApiService, Comment, CommentApiService, User, UserApiService} = require('neurelo-sdk');
+var {ProjectApiService, CommentApiService, UserApiService} = require('neurelo-sdk');
 var user = require('./user.js');
 
 async function projectKnowMore(req, res) {
@@ -6,7 +6,7 @@ async function projectKnowMore(req, res) {
 
 		var project_res = await ProjectApiService.findProjectById(req.params.id);
 		var project = project_res.data?.data;
-
+		console.log(project)
 		let CommentAuthors = []
 		if (project.comments.length != 0) {
 			project.comments.forEach(async function (commentid) {
