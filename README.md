@@ -12,24 +12,34 @@
 
 ## How to spin-up the server based on Neurelo
 ```
-# Spin-up daemonized development server, to enable making code changes and reflect updates to the Frontend/Server in the live
+# Install Node.js dependencies
 $ npm install
+
+# Install nodemon command-line globally on the machine
 $ npm install -g nodemon
+
+# Change directory to Neurelo-app
 $ cd Neurelo-app
+
+# Spin-up daemonized development server, to enable making code changes and reflect updates to the Frontend/Server in the live
 $ npm run start-dev
+
 # Spin-up production server
-$ cd Neurelo-app
 $ npm run start
 ```
 
 ## How to spin-up the server based on Mongoose
 ```
-# Spin-up daemonized development server, to enable making code changes and reflect updates to the Frontend/Server in the live
+# Install Node.js dependencies
 $ npm install
+
+# Change directory to Mongoose-app
 $ cd Mongoose-app
+
+# Spin-up daemonized development server, to enable making code changes and reflect updates to the Frontend/Server in the live
 $ npm run start-dev
+
 # Spin-up production server
-$ cd Mongoose-app
 $ npm run start
 ```
 
